@@ -3,12 +3,12 @@ import { View, Text, StyleSheet, Button} from 'react-native'
 import { SignOut } from '../../firebase/Authentivation'
 import auth from '@react-native-firebase/auth'
 
-const StudentDashboard = ({navigation}) => {
+const TeacherDashboard = ({navigation}) => {
 
   return(
 
     <View style={styles.container}>
-      <Text>StudentDashboard screen</Text>
+      <Text>TeacherDashboard screen</Text>
       <Button title="About Us " onPress={() => {
             auth().signOut(),
             console.log('Sign out')
@@ -19,7 +19,7 @@ const StudentDashboard = ({navigation}) => {
   )
 }
 
-export default StudentDashboard;
+export default TeacherDashboard;
 
 
 const styles = StyleSheet.create({

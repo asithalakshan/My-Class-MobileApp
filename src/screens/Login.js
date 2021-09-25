@@ -1,73 +1,117 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Button, Image, TextInput} from 'react-native'
+import { View, Text, StyleSheet, Button, Image, TextInput, SafeAreaView, ScrollView, Alert} from 'react-native'
 import * as Const from '../../util/Contstants'
 import ButtonLogin from '../components/ButtonMain'
 import ButtonMain from '../components/ButtonMain'
 import  FontAwesome5  from 'react-native-vector-icons/Ionicons'
+import { SignIn, SignOut } from '../firebase/Authentivation'
+import auth from '@react-native-firebase/auth'
+import { firebase } from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore'
 
 const Login = ({navigation}) => {
 
-  const [userName, setUserName] = useState(null);
+  const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
-  const [showPassword, setShowPassword] = useState(false)  
+  const [showPassword, setShowPassword] = useState(false) 
+  
+  
+  const OnSignIn = () => {
+    
+    auth()
+            .signInWithEmailAndPassword(email, password)
+            .then(() => {
+                console.log('signed in!');
+                navigation.navigate('TeacherBottomTab')
+            })
+            .catch(error => {
+                console.error(error.code);
+                if (error.code === 'auth/wrong-password') {
+                    Alert.alert(
+                        "Invalid Password",
+                        "Pleasse check Your password and tyr again.",
+                        [                      
+                            { text: "OK", onPress: () => console.log("OK Pressed") }
+                        ]
+                    );
+                }
+                if (error.code === 'auth/invalid-email') {
+                    Alert.alert(
+                        "Invalid Email",
+                        "Pleasse check Your email and tyr again.",
+                        [                      
+                            { text: "OK", onPress: () => console.log("OK Pressed") }
+                        ]
+                    );
+                }
+            }) 
+    // console.log('login press' , signInResponce)
+
+
+
+  }
   
 
   return(
 
-    <View style={styles.container}>
+    <SafeAreaView>
+      <ScrollView>
+        <View style={styles.container}>
 
-      <View style={{alignItems: 'center'}}>
-        <Text style={styles.mainTitle}>My Class</Text>
-        <Image style={styles.logo} source={require('../images/myclasslogo.png')}/>         
-      </View>
+          <View style={{alignItems: 'center'}}>
+            <Text style={styles.mainTitle}>My Class</Text>
+            <Image style={styles.logo} source={require('../images/myclasslogo.png')}/>         
+          </View>
 
-      <Text style={styles.semiTitle}>Login</Text>
+          <Text style={styles.semiTitle}>Login</Text>
 
-      <View style={styles.row}>
-        <FontAwesome5 name="mail-outline" size={30} color={Const.grayFontColor} style={styles.icons}/>
-        <View style={{flex: 21}}> 
-          <Text style={styles.title}>Email</Text>
-          <TextInput
-            style={styles.input}
-            placeholder='Enter Your Email'
-            onChangeText={text => setUserName(text)}
-            defaultValue={userName}
-         />
+          <View style={styles.row}>
+            <FontAwesome5 name="at-outline" size={30} color={Const.grayFontColor} style={styles.icons}/>
+            <View style={{flex: 21}}> 
+              <Text style={styles.title}>Email</Text>
+              <TextInput
+                style={styles.input}
+                placeholder='Enter Your Email'
+                onChangeText={text => setEmail(text)}
+                defaultValue={email}
+            />
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={[styles.icons]}>
+              <FontAwesome5 name="lock-closed-outline" size={30} color={Const.grayFontColor} />
+            </View>
+            <View style={{flex: 21}}> 
+              <Text style={styles.title}>Password</Text>
+              <TextInput
+                style={styles.input}
+                placeholder='Password'
+                secureTextEntry={!showPassword}
+                onChangeText={text => setPassword(text)}
+                defaultValue={password}
+            />
+            </View>
+            <View style={[styles.icons, {justifyContent: 'flex-end', alignItems: 'flex-end', paddingBottom: 10, marginBottom: 10, borderBottomColor: Const.grayFontColor, borderBottomWidth: 1,}]}>
+              {/* <FontAwesome5 name="eye" size={30} color={Const.grayFontColor} onPress={} /> */}
+              {showPassword ?  
+                <FontAwesome5  name='eye-outline' size={30} color={Const.grayFontColor} onPress={() => setShowPassword((showPassword) => !showPassword)}/> :
+                <FontAwesome5  name='eye-off-outline' size={30} color={Const.grayFontColor} onPress={() => setShowPassword((showPassword) => !showPassword)}/>  
+              }  
+            </View>
+          </View>
+
+          <ButtonLogin title="Sign In"  onPress={OnSignIn}/>
+          
+          <View style={[styles.row, {marginHorizontal: 55, }]}>
+            <Text style={{fontSize: 15,}}>Goto </Text>
+            <Text style={{color: Const.blueColor, fontSize: 15,}} onPress={() => {navigation.navigate('AboutUs'), console.log('About us press')}}>about us </Text>
+            <Text style={{fontSize: 15,}}>page to look more...!</Text>
+          </View>
+        
         </View>
-      </View>
-
-      <View style={styles.row}>
-        <View style={[styles.icons]}>
-          <FontAwesome5 name="lock-closed-outline" size={30} color={Const.grayFontColor} />
-        </View>
-        <View style={{flex: 21}}> 
-          <Text style={styles.title}>Password</Text>
-          <TextInput
-            style={styles.input}
-            placeholder='Password'
-            secureTextEntry={!showPassword}
-            onChangeText={text => setPassword(text)}
-            defaultValue={password}
-         />
-        </View>
-        <View style={[styles.icons, {justifyContent: 'flex-end', alignItems: 'flex-end', paddingBottom: 10, marginBottom: 10, borderBottomColor: Const.grayFontColor, borderBottomWidth: 1,}]}>
-          {/* <FontAwesome5 name="eye" size={30} color={Const.grayFontColor} onPress={} /> */}
-          {showPassword ?  
-            <FontAwesome5  name='eye-outline' size={30} color={Const.grayFontColor} onPress={() => setShowPassword((showPassword) => !showPassword)}/> :
-            <FontAwesome5  name='eye-off-outline' size={30} color={Const.grayFontColor} onPress={() => setShowPassword((showPassword) => !showPassword)}/>  
-          }  
-        </View>
-      </View>
-
-      <ButtonLogin title="Sign In"  onPress={() => {navigation.navigate('StudentDrawer'), console.log('login press' , userName)}}/>
-      
-      <View style={[styles.row, {marginHorizontal: 55, }]}>
-        <Text style={{fontSize: 15,}}>Goto </Text>
-        <Text style={{color: Const.blueColor, fontSize: 15,}} onPress={() => {navigation.navigate('AboutUs'), console.log('About us press')}}>about us </Text>
-        <Text style={{fontSize: 15,}}>page to look more...!</Text>
-      </View>
-    
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 

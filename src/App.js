@@ -3,6 +3,7 @@ import { View, Text, StyleSheet} from 'react-native'
 import RootStack from './navigators/RootStack';
 import Login from './screens/Login';
 
+
 const App = () => {
 
   return(

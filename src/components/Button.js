@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import * as Const from '../../util/Contstants'
 
-export default function Button({ text, onPress }){
+export default function Button({ title, onPress, styless }){
     return (
         <TouchableOpacity onPress={onPress}>
-            <View style={styles.button}>
-                <Text style={styles.buttonText}>{ text }</Text>
+            <View style={styless}>
+                <Text style={styles.buttonText}>{ title }</Text>
             </View>
         </TouchableOpacity>
 
@@ -13,15 +14,10 @@ export default function Button({ text, onPress }){
 }
 
 const styles = StyleSheet.create({
-    button: {
-        borderRadius: 10,
-        paddingVertical: 5,
-        paddingHorizontal: 5,
-        backgroundColor: '#04799E',
-    },
+    
     buttonText: {
         color: '#fff',
-        fontSize: 15,
+        fontSize: 18,
         textAlign: 'center',
     }
 })

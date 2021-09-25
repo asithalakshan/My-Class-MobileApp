@@ -1,7 +1,7 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import StudentDashboard from '../screens/student/StudentDashboard';
-import StudentProfile from '../screens/student/StudentProfile';
+// import StudentProfile from '../creens/sudent/StudentProfile';
 
 const Drawer = createDrawerNavigator();
 
