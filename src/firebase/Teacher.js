@@ -12,34 +12,50 @@ export async function GetUserData  (userId)  {
                 .collection("teacher")
                     .doc(userId)
                         .get()
-                        .then((res) => {
-                            
-                            data = res.data()
-                            
+                        .then((res) => {                            
+                            data = res.data()                            
                         })
-                        return data
-                        
+                        return data                        
         } catch (error) {
         console.log(error)
         }
-        console.log("usedatatatata", data)
-    // firestore()
-    //     .collection("teacher")
-    //         .doc(userId)
-    //             .get()
-    //                 .then((res) => {
-    //                     console.log("usedatatatata", res.data())
-                        
-    //                 })
-    //                 .catch((err) => {
-    //                     console.log(err)
-    //                 })
+        console.log("usedatatatata", data)       
     
+}
+
+export async function GetStudentList  ()  {
+    
+    let data = []
+    try {
+        return await firestore()
+                .collection("student")
+                    .get()
+                    .then((res) => {                            
+                            data = res.docs
+                            // console.log("ustdents", data)
+                            return data                       
+                        })
+                       
+                        
+                                                
+        } catch (error) {
+        console.log(error)
+        }
+          
+        
     
 }
 
 
-export const AddStudentStore = (student) => {    
+
+
+export const AddStudentStore = (student) => {  
+    
+        // var date = new Date().getDate();
+        // var month = new Date().getMonth();
+        // var year = new Date().getFullYear();
+
+        // var regDate = year + '/' + month + '/' date;
     
         auth()
         .createUserWithEmailAndPassword(student.email, student.nic)
@@ -60,7 +76,7 @@ export const AddStudentStore = (student) => {
                         "Student Added",
                         "Student added succuessfully",
                         [                      
-                            { text: "OK", onPress: () => {console.log("OK Pressed"), window.location.reload()}}
+                            { text: "OK", onPress: () => {console.log("OK Pressed")}}
                         ]
                     );
                     

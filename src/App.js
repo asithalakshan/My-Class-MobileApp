@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet} from 'react-native'
 import RootStack from './navigators/RootStack';
-import Login from './screens/Login';
+// import Login from './screens/Login';
 import { Provider } from 'react-redux';
 import store from './redux/store/store';
 
