@@ -1,7 +1,42 @@
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
-import React from 'react'
+import React, { useState }from 'react'
+import { useDispatch } from 'react-redux'
 import { Alert } from 'react-native'
+
+export async function GetUserData  (userId)  {
+    
+    let data = []
+    try {
+        await firestore()
+                .collection("teacher")
+                    .doc(userId)
+                        .get()
+                        .then((res) => {
+                            
+                            data = res.data()
+                            
+                        })
+                        return data
+                        
+        } catch (error) {
+        console.log(error)
+        }
+        console.log("usedatatatata", data)
+    // firestore()
+    //     .collection("teacher")
+    //         .doc(userId)
+    //             .get()
+    //                 .then((res) => {
+    //                     console.log("usedatatatata", res.data())
+                        
+    //                 })
+    //                 .catch((err) => {
+    //                     console.log(err)
+    //                 })
+    
+    
+}
 
 
 export const AddStudentStore = (student) => {    

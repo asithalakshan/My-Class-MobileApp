@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
       marginBottom: 10,
       fontSize: 15,
       height: 50,
-      fontWeight: '200',
+      fontWeight: '300',
       color: '#000',
     },
     icons: {

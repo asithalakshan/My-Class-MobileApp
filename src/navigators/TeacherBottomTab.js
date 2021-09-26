@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TeacherDashboard from '../screens/teacher/TeacherDashboard';
-import TeacherProfile from '../screens/teacher/TeacherProfile';
+import TeacherProfile from '../screens/teacher/teacherProfile/TeacherProfile';
 // import ViewStudents from '../screens/teacher/viewStudents/ViewStudents';
 import ViewStudentAddStack from './teacherStacks/ViewStudentStack';
 import { StyleSheet, View, Text } from 'react-native';
@@ -31,6 +31,20 @@ const TeacherBottomTab = () => {
         headerShown: false,
       }}
     >
+      <Tab.Screen name="Profilrs" component={TeacherProfile} 
+        options={{
+          tabBarIcon: ({focused}) => (
+            <View>
+                {focused ? 
+                  <IonIcons name="person" size={30} style={[styles.tabIcon]} /> : 
+                  <IonIcons name="person-outline" size={30} style={[styles.tabIcon]} />  
+                }
+                <Text style={styles.titleText}>Profile</Text>
+            </View>
+          )
+        }}
+      />
+      
       <Tab.Screen name="Dashboard" component={TeacherDashboard} 
         options={{
           tabBarIcon: ({focused}) => (
@@ -59,19 +73,7 @@ const TeacherBottomTab = () => {
         }}
       />
 
-      <Tab.Screen name="Profilrs" component={TeacherProfile} 
-        options={{
-          tabBarIcon: ({focused}) => (
-            <View>
-                {focused ? 
-                  <IonIcons name="person" size={30} style={[styles.tabIcon]} /> : 
-                  <IonIcons name="person-outline" size={30} style={[styles.tabIcon]} />  
-                }
-                <Text style={styles.titleText}>Profile</Text>
-            </View>
-          )
-        }}
-      />
+      
     </Tab.Navigator>
 
   );

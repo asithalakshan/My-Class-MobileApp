@@ -4,58 +4,44 @@ import * as Const from '../../util/Contstants'
 import ButtonLogin from '../components/ButtonMain'
 import ButtonMain from '../components/ButtonMain'
 import  FontAwesome5  from 'react-native-vector-icons/Ionicons'
-import { SignIn, SignOut } from '../firebase/Authentivation'
+import { SignIn, SignOut } from '../firebase/Authentication'
 import auth from '@react-native-firebase/auth'
 import { firebase } from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
+import { useDispatch } from 'react-redux'
+import { signIn } from '../redux/actions/userAction'
 
 const Login = ({navigation}) => {
+
+  const dispatch = useDispatch() 
 
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [showPassword, setShowPassword] = useState(false) 
+  const [responceId, setResponceId] = useState(false)  
   
-  
-  const OnSignIn = () => {
+  async function OnSignIn(e){
+
+
+    let loginData = {email: email, password: password}
     
-    auth()
-            .signInWithEmailAndPassword(email, password)
-            .then(() => {
-                console.log('signed in!');
-                navigation.navigate('TeacherBottomTab')
-            })
-            .catch(error => {
-                console.error(error.code);
-                if (error.code === 'auth/wrong-password') {
-                    Alert.alert(
-                        "Invalid Password",
-                        "Pleasse check Your password and tyr again.",
-                        [                      
-                            { text: "OK", onPress: () => console.log("OK Pressed") }
-                        ]
-                    );
-                }
-                if (error.code === 'auth/invalid-email') {
-                    Alert.alert(
-                        "Invalid Email",
-                        "Pleasse check Your email and tyr again.",
-                        [                      
-                            { text: "OK", onPress: () => console.log("OK Pressed") }
-                        ]
-                    );
-                }
-            }) 
-    // console.log('login press' , signInResponce)
+    const res = await SignIn(loginData)
 
-
+    setResponceId(res.user.uid)  
+    
+    if(responceId){
+      dispatch(signIn(responceId))
+      console.log("Responce " , responceId)
+      navigation.navigate('TeacherBottomTab')
+    }
 
   }
   
 
   return(
 
-    <SafeAreaView>
-      <ScrollView>
+    <SafeAreaView style={styles.scrollview}>
+      <ScrollView >
         <View style={styles.container}>
 
           <View style={{alignItems: 'center'}}>
@@ -124,6 +110,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Const.lightBackgroundColor,
     marginHorizontal: 20,
+  },
+  scrollview: {
+    backgroundColor: Const.lightBackgroundColor,
+    flex: 1,
   },
   row: {
     flexDirection: 'row',

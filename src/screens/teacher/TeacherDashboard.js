@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, Button} from 'react-native'
-import { SignOut } from '../../firebase/Authentivation'
+import { SignOut } from '../../firebase/Authentication'
 import auth from '@react-native-firebase/auth'
 
 const TeacherDashboard = ({navigation}) => {
