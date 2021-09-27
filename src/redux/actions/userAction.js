@@ -18,26 +18,7 @@ export const signIn = (userId) => {
     }
 }
 
-export const setNextClinic = (clinicdata) => {
-    return {
-        type: NEXT_CLINIC,
-        payload: clinicdata,
-    }
-}
 
-export const setPastClinic = (clinicdata) => {
-    return {
-        type: PAST_CLINIC,
-        payload: clinicdata,
-    }
-}
-
-export const setReport = (reportdata) => {
-    return {
-        type: REPORT,
-        payload: reportdata,
-    }
-}
 
 
 

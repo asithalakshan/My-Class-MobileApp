@@ -7,7 +7,7 @@ const StudentProfile = ({navigation}) => {
 
     <View style={styles.container}>
       <Text>StudentProfile screen</Text>
-      <Button title="About Us " onPress={() => {navigation.navigate('AboutUs')}}/>
+      <Button title="About Us " />
     </View>
   )
 }

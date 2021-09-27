@@ -1,15 +1,29 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Button, Image, TextInput, SafeAreaView, ScrollView, Alert} from 'react-native'
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+  Button, 
+  Image, 
+  TextInput, 
+  SafeAreaView, 
+  ScrollView, 
+  Alert
+} 
+from 'react-native'
+
 import * as Const from '../../util/Contstants'
 import ButtonLogin from '../components/ButtonMain'
 import ButtonMain from '../components/ButtonMain'
 import  FontAwesome5  from 'react-native-vector-icons/Ionicons'
-import { SignIn, SignOut } from '../firebase/Authentication'
+import { SignIn, SignOut, GetUserType } from '../firebase/Authentication'
 import auth from '@react-native-firebase/auth'
 import { firebase } from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 import { useDispatch } from 'react-redux'
 import { signIn } from '../redux/actions/userAction'
+
+
 
 const Login = ({navigation}) => {
 
@@ -18,22 +32,38 @@ const Login = ({navigation}) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [showPassword, setShowPassword] = useState(false) 
-  const [responceId, setResponceId] = useState(false)  
+  const [responceId, setResponceId] = useState(false)
+  const [userType, setUserType] = useState('')  
   
   async function OnSignIn(e){
-
 
     let loginData = {email: email, password: password}
     
     const res = await SignIn(loginData)
+    
 
     setResponceId(res.user.uid)  
     
     if(responceId){
       dispatch(signIn(responceId))
       console.log("Responce " , responceId)
-      navigation.navigate('TeacherBottomTab')
+      const type = await GetUserType(responceId)
+      setUserType(type)
+      
+      if(userType.type == 'teacher'){
+        navigation.navigate('TeacherBottomTab')
+      }
+
+      if(userType.type == 'student'){
+        navigation.navigate('StudentBottomTab')
+      }
+      
     }
+
+    
+    console.log('tyeeeeeps' ,userType.type)
+
+
 
   }
   
@@ -127,10 +157,10 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   logo: {
-    width: 300, 
+    width: 200, 
     height: 150, 
     marginVertical: 5,
-    marginTop: 20,
+    marginVertical: 20,
     
   },
   semiTitle: {

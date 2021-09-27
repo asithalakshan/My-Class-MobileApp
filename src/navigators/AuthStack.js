@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Login from '../screens/Login';
 import AboutUs from  '../screens/AboutUs';
-import StudentDrawer from './StudentDrawer';
+import StudentBottomTab from './StudentBottomTab';
 import TeacherBottomTab from './TeacherBottomTab';
 
 
@@ -21,7 +21,7 @@ const AuthStack = () => {
             >
                 <Auth.Screen name='Login' component={Login}/>
                 <Auth.Screen name='AboutUs' component={AboutUs}/>
-                <Auth.Screen name='StudentDrawer' component={StudentDrawer}/>
+                <Auth.Screen name='StudentBottomTab' component={StudentBottomTab}/>
                 <Auth.Screen name='TeacherBottomTab' component={TeacherBottomTab}/>
 
             </Auth.Navigator>

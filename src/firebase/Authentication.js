@@ -31,9 +31,28 @@ export const SignIn = (loginData) => {
                         ]
                     );
                 }
+                if (error.code === 'auth/user-not-found') {
+                    Alert.alert(
+                        "User Not Found",
+                        "Pleasse check Your email and tyr again.",
+                        [                      
+                            { text: "OK", onPress: () => console.log("OK Pressed") }
+                        ]
+                    );
+                }
             }) 
 }
 
+export const GetUserType = (id) => {
+    
+     return firestore().collection('user')
+                .doc(id)
+                .get()
+                .then((res) => {
+                    console.log('resssssssssssss', res.data())
+                    return res.data()
+                })
+}
 
 export const SignOut = ({navigation}) => {
 

@@ -50,16 +50,20 @@ export async function GetStudentList  ()  {
 
 
 export const AddStudentStore = (student) => {  
-    
-        // var date = new Date().getDate();
-        // var month = new Date().getMonth();
-        // var year = new Date().getFullYear();
 
-        // var regDate = year + '/' + month + '/' date;
+        function addUserTable (userId) {
+            
+        }
     
         auth()
         .createUserWithEmailAndPassword(student.email, student.nic)
         .then(token => {
+            firestore().collection("user")
+                .doc(token.user.uid)
+                .set({
+                    email: student.email,                    
+                    type: student.type,
+                })
             firestore().collection("student")
                 .doc(token.user.uid)
                 .set({
@@ -70,7 +74,7 @@ export const AddStudentStore = (student) => {
                     nic: student.nic,
                     type: student.type,
                 })
-                .then(function() {
+                .then(function() {                    
                     console.log("User Aded");
                     Alert.alert(
                         "Student Added",
@@ -91,6 +95,7 @@ export const AddStudentStore = (student) => {
                     return err
                 })
 }
+
 
 
 export const AddStudentAuth = (student) => {
