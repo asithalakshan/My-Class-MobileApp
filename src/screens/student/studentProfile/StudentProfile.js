@@ -371,7 +371,7 @@ const styles = StyleSheet.create({
                 { translateY: -90 }],
     // height: 280,
     width: width * 0.8,
-    backgroundColor: "#fff",
+    backgroundColor: Const.modalBackgroundColor,
     borderRadius: 10,
   },
   viewWrapper: {
@@ -392,6 +392,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Const.grayFontColor,
     borderBottomWidth: 1,
     fontSize: 18,
-    backgroundColor: '#fff',
+    textAlign: 'center',
+    marginHorizontal: 10,
   },
 })

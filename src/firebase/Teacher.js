@@ -96,3 +96,83 @@ export const DeleteStudent = (student) => {
     firestore().collection('student').where('email'== student.email )
         
 }
+
+export async function UpdateUserData  (data)  {
+    
+    console.log('propsss', data)
+    // let data = []
+    
+    if(data.field == 'name'){
+        try {
+            await firestore().collection("teacher")
+                        .doc(data.id)
+                            .update("name", data.value)
+                                .then((res) => {
+                                    console.log(res)
+                                })
+                                .catch((err)=> {
+                                    console.log(err)
+                                })               
+                           
+                                                    
+            } catch (error) {
+            console.log(error)
+            }
+    }
+
+    if(data.field == 'address'){
+        try {
+            await firestore().collection("teacher")
+                        .doc(data.id)
+                            .update("address", data.value)
+                                .then((res) => {
+                                    console.log(res)
+                                })
+                                .catch((err)=> {
+                                    console.log(err)
+                                })               
+                           
+                                                    
+            } catch (error) {
+            console.log(error)
+            }
+    }    
+
+    if(data.field == 'qualifications'){
+        try {
+            await firestore().collection("teacher")
+                        .doc(data.id)
+                            .update("qualifications", data.value)
+                                .then((res) => {
+                                    console.log(res)
+                                })
+                                .catch((err)=> {
+                                    console.log(err)
+                                })               
+                           
+                                                    
+            } catch (error) {
+            console.log(error)
+            }
+    }
+
+    if(data.field == 'subject'){
+        try {
+            await firestore().collection("teacher")
+                        .doc(data.id)
+                            .update("subject", data.value)
+                                .then((res) => {
+                                    console.log(res)
+                                })
+                                .catch((err)=> {
+                                    console.log(err)
+                                })               
+                           
+                                                    
+            } catch (error) {
+            console.log(error)
+            }
+    }
+        console.log("usedatatatata", data)       
+    
+}

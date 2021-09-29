@@ -17,3 +17,5 @@ export const blackFontColor = '#000'
 
 export const whiteFontColor = '#FFF'
 
+export const modalBackgroundColor = '#FFF'
+
