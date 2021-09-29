@@ -50,7 +50,7 @@ export const GetUserType = (id) => {
                 .get()
                 .then((res) => {
                     console.log('resssssssssssss', res.data())
-                    return res.data()
+                    return res
                 })
 }
 

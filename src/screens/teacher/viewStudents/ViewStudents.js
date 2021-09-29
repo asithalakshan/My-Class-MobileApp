@@ -6,9 +6,10 @@ import { GetStudentList } from '../../../firebase/Teacher'
 import * as Const from '../../../../util/Contstants'
 import  Iconicons  from 'react-native-vector-icons/Ionicons'
 import Button from '../../../components/Button'
+import { useIsFocused } from '@react-navigation/native'
 
 async function get_student_list () {
-
+  
   let students = []
  try {
     await GetStudentList()
@@ -29,13 +30,13 @@ const { width } = Dimensions.get("window");
 const ViewStudents = ({navigation}) => {
 
   const [studentList, setStudentList] = useState('')
-
+  const isFocused = useIsFocused()
   
   useEffect(() => {    
     get_student_list().then((res) => {
       setStudentList(res)
     })    
-  }, [])
+  }, [isFocused])
 
   console.log('sdddddssssdd',Object.values(studentList)) 
 

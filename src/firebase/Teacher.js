@@ -35,15 +35,10 @@ export async function GetStudentList  ()  {
                             // console.log("ustdents", data)
                             return data                       
                         })
-                       
-                        
-                                                
+
         } catch (error) {
         console.log(error)
-        }
-          
-        
-    
+        }  
 }
 
 
@@ -51,10 +46,8 @@ export async function GetStudentList  ()  {
 
 export const AddStudentStore = (student) => {  
 
-        function addUserTable (userId) {
-            
-        }
-    
+        // function addUserTable (userId) {         
+        // }
         auth()
         .createUserWithEmailAndPassword(student.email, student.nic)
         .then(token => {
@@ -98,8 +91,8 @@ export const AddStudentStore = (student) => {
 
 
 
-export const AddStudentAuth = (student) => {
-    auth()
-        .createUserWithEmailAndPassword(student.email, student.nic)
+export const DeleteStudent = (student) => {
+    
+    firestore().collection('student').where('email'== student.email )
         
 }

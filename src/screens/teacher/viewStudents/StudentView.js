@@ -12,7 +12,17 @@ const ViewStudents = ({route, navigation}) => {
 
     return (
         <SafeAreaView style={styles.container}>
-      
+            <View style={styles.row}>
+                <Iconicons 
+                    name="arrow-back-outline" 
+                    size={40} 
+                    color={Const.blueColor} 
+                    style={[styles.icons, {
+                        marginVertical: 10,
+                    }]}
+                    onPress={()=>{navigation.navigate('ViewStudents')}}
+                    />
+            </View>
             <Text style={styles.semiTitle}>Student Profile</Text>
             <ScrollView >
                 <View >

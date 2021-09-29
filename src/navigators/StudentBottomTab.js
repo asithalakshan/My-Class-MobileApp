@@ -4,7 +4,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import  IonIcons  from 'react-native-vector-icons/Ionicons'
 import * as Const from '../../util/Contstants'
 import StudentDashboard from '../screens/student/StudentDashboard';
-import StudentProfile from '../screens/student/StudentProfile';
+import StudentProfile from '../screens/student/studentProfile/StudentProfile';
 
 const Tab = createBottomTabNavigator();
 

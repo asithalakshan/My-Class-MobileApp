@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { 
   View, 
   Text, 
@@ -22,6 +22,7 @@ import { firebase } from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 import { useDispatch } from 'react-redux'
 import { signIn } from '../redux/actions/userAction'
+import { useIsFocused } from '@react-navigation/native'
 
 
 
@@ -29,39 +30,53 @@ const Login = ({navigation}) => {
 
   const dispatch = useDispatch() 
 
+  
+
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [showPassword, setShowPassword] = useState(false) 
   const [responceId, setResponceId] = useState(false)
-  const [userType, setUserType] = useState('')  
+  const [userType, setUserType] = useState(false)  
+  const isFocused = useIsFocused()
+
+  useEffect(() => {
+    setEmail(null)
+    setPassword(null)
+    setResponceId(false)
+    setUserType('')
+    setPassword(false)
+    // dispatch(signIn(null))
+  }, [isFocused])
+
+  
   
   async function OnSignIn(e){
 
     let loginData = {email: email, password: password}
     
     const res = await SignIn(loginData)
-    
+    const type = await GetUserType(responceId)
+      setUserType(type.data())
 
     setResponceId(res.user.uid)  
     
     if(responceId){
       dispatch(signIn(responceId))
       console.log("Responce " , responceId)
-      const type = await GetUserType(responceId)
-      setUserType(type)
       
-      if(userType.type == 'teacher'){
+      
+      if(type.data().type == 'teacher'){
         navigation.navigate('TeacherBottomTab')
       }
 
-      if(userType.type == 'student'){
+      if(type.data().type == 'student'){
         navigation.navigate('StudentBottomTab')
       }
       
     }
 
     
-    console.log('tyeeeeeps' ,userType.type)
+    // console.log('tyeeeeeps' ,userType.type)
 
 
 

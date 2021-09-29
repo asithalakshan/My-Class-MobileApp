@@ -14,7 +14,7 @@ const ViewStudentAddStack = () => {
         
             <StudentAdd.Navigator 
                 screenOptions={{
-                    // headerShown: false
+                    headerShown: false
                 }}>
                 <StudentAdd.Screen name='ViewStudents' component={ViewStudents}/>
                 <StudentAdd.Screen name='AddStudent' component={AddStudent}/>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { View, Text, StyleSheet, SafeAreaView, ScrollView, TextInput, Alert } from 'react-native'
 import  Iconicons  from 'react-native-vector-icons/Ionicons'
 import * as Const from '../../../../util/Contstants'
@@ -7,6 +7,7 @@ import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 import { firebase } from '@react-native-firebase/firestore'
 import * as TeacherFire from '../../../firebase/Teacher'
+import { useIsFocused } from '@react-navigation/native'
 
 
 const AddStudent = ({navigation}) => {
@@ -17,6 +18,13 @@ const AddStudent = ({navigation}) => {
   const [email, setEmail] = useState('')
   const [nic, setNic] = useState('')
   const [type, setType] = useState('student')
+
+  const isFocused = useIsFocused()
+  const [okPress, setOkPress] = useState(true)
+
+  useEffect(() => {
+
+  }, [isFocused])
 
   
 
@@ -31,7 +39,7 @@ const AddStudent = ({navigation}) => {
     }
     // console.log(student)
     const responce = TeacherFire.AddStudentStore(student)
-    console.log(responce)
+    console.log('ad res' , responce)
 
     if(responce) {
       
@@ -44,6 +52,17 @@ const AddStudent = ({navigation}) => {
   return(
 
     <SafeAreaView style={styles.container}>
+      <View style={styles.row}>
+          <Iconicons 
+              name="arrow-back-outline" 
+              size={40} 
+              color={Const.blueColor} 
+              style={[styles.icons, {
+                  marginVertical: 10,
+              }]}
+              onPress={()=>{navigation.navigate('ViewStudents')}}
+              />
+      </View>
       
       <Text style={styles.semiTitle}>Add Student</Text>
       <ScrollView >
