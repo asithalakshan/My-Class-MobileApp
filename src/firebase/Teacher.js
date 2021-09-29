@@ -41,6 +41,43 @@ export async function GetStudentList  ()  {
         }  
 }
 
+export async function GetStudentById  (id)  {
+    
+    let data = []
+    try {
+        return await firestore()
+                .collection("student")
+                    .doc(id)
+                    .get()
+                    .then((res) => {                            
+                            data = res.data()
+                            // console.log("ustdents", data)
+                            return data                       
+                        })
+
+        } catch (error) {
+        console.log(error)
+        }  
+}
+
+export async function DeleteStudentById  (id)  {
+    
+    let data = []
+    try {
+        return await firestore()
+                .collection("student")
+                    .doc(id)
+                    .delete()
+                    .then((res) => {                            
+                            // data = res.data()
+                            // console.log("ustdents", data)
+                            return res                       
+                        })
+
+        } catch (error) {
+        console.log(error)
+        }  
+}
 
 
 
@@ -66,6 +103,7 @@ export const AddStudentStore = (student) => {
                     email: student.email,
                     nic: student.nic,
                     type: student.type,
+                    id: token.user.uid,
                 })
                 .then(function() {                    
                     console.log("User Aded");
@@ -76,7 +114,7 @@ export const AddStudentStore = (student) => {
                             { text: "OK", onPress: () => {console.log("OK Pressed")}}
                         ]
                     );
-                    
+                    return true
                 })
                 .catch((err) => {
                     console.log(err)

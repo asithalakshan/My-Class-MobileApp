@@ -40,6 +40,7 @@ const AddStudent = ({navigation}) => {
     // console.log(student)
     const responce = TeacherFire.AddStudentStore(student)
     console.log('ad res' , responce)
+    navigation.navigate('ViewStudents')
 
     if(responce) {
       

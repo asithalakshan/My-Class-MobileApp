@@ -210,7 +210,12 @@ const TeacherProfile = ({navigation}) => {
                             </View>
                             <View style={styles.row}>
                                 <View style={{flex: 2}}>
-                                  <Iconicons name="at-outline" size={40} color={Const.grayFontColor} style={styles.icons}/>
+                                  <Iconicons 
+                                    name="at-outline" 
+                                    size={40} 
+                                    color={Const.grayFontColor} 
+                                    style={styles.icons}
+                                  />
                                 </View>
                                 <View style={{flex: 10}}>
                                     <Text style={styles.p1}>Email</Text>
@@ -222,7 +227,12 @@ const TeacherProfile = ({navigation}) => {
                             </View>
                             <View style={styles.row}>
                                 <View style={{flex: 2}}>
-                                  <Iconicons name="reader-outline" size={40} color={Const.grayFontColor} style={styles.icons}/>
+                                  <Iconicons 
+                                    name="reader-outline" 
+                                    size={40} 
+                                    color={Const.grayFontColor} 
+                                    style={styles.icons}
+                                  />
                                 </View>
                                 <View style={{flex: 10}}>
                                     <Text style={styles.p1}>NIC Number</Text>
@@ -267,7 +277,11 @@ const TeacherProfile = ({navigation}) => {
                               {paddingHorizontal: 32, 
                               paddingTop: 20}
                           ]}>                              
-                              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                              <View style={{
+                                      flex: 1, 
+                                      flexDirection: 'row', 
+                                      justifyContent: 'space-between'
+                                    }}>
                                   <Button 
                                     title="Close" 
                                     onPress={() => setModalVisible(!isModalVisible)} 
