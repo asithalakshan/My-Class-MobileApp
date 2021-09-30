@@ -51,7 +51,7 @@ export async function GetStudentById  (id)  {
                     .get()
                     .then((res) => {                            
                             data = res.data()
-                            // console.log("ustdents", data)
+                            console.log("ustdents", data)
                             return data                       
                         })
 
@@ -214,3 +214,67 @@ export async function UpdateUserData  (data)  {
         console.log("usedatatatata", data)       
     
 }
+
+
+export async function UpdateStudentData  (data)  {
+    
+    console.log('propsss', data)
+    // let data = []
+    
+    if(data.field == 'name'){
+        try {
+            await firestore().collection("student")
+                        .doc(data.id)
+                            .update("name", data.value)
+                                .then((res) => {
+                                    console.log(res)
+                                })
+                                .catch((err)=> {
+                                    console.log(err)
+                                })               
+                           
+                                                    
+            } catch (error) {
+            console.log(error)
+            }
+    }
+
+    if(data.field == 'school'){
+        try {
+            await firestore().collection("student")
+                        .doc(data.id)
+                            .update("school", data.value)
+                                .then((res) => {
+                                    console.log(res)
+                                })
+                                .catch((err)=> {
+                                    console.log(err)
+                                })               
+                           
+                                                    
+            } catch (error) {
+            console.log(error)
+            }
+    }
+
+    if(data.field == 'address'){
+        try {
+            await firestore().collection("student")
+                        .doc(data.id)
+                            .update("address", data.value)
+                                .then((res) => {
+                                    console.log(res)
+                                })
+                                .catch((err)=> {
+                                    console.log(err)
+                                })               
+                           
+                                                    
+            } catch (error) {
+            console.log(error)
+            }
+    }
+        console.log("usedatatatata", data)       
+    
+}
+

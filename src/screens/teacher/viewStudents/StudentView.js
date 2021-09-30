@@ -14,28 +14,42 @@ import {
 } from 'react-native'
 import auth from '@react-native-firebase/auth'
 import { useSelector } from 'react-redux'
-import { GetStudentById, DeleteStudentById } from '../../../firebase/Teacher'
+import { 
+  GetStudentById, 
+  DeleteStudentById, 
+  UpdateStudentData 
+} from '../../../firebase/Teacher'
 import * as Const from '../../../../util/Contstants'
 import  Iconicons  from 'react-native-vector-icons/Ionicons'
 import Button from '../../../components/Button'
+import { useIsFocused } from '@react-navigation/native'
 
 const { width, height } = Dimensions.get("window");
 
 const ViewStudents = ({route, navigation}) => {
 
-    const {studentData } = route.params;
-
-    const [name, setName] = useState(studentData.name)
-    const [school, setSchool] = useState(studentData.school)
-    const [address, setAddress] = useState(studentData.address)
-    const [isModalVisible, setModalVisible] = useState(false)   
-
+    const {studentId } = route.params;
+    
+    // const [name, setName] = useState(studentData.name)
+    // const [school, setSchool] = useState(studentData.school)
+    // const [address, setAddress] = useState(studentData.address)
+    const [studentData, setStudentData] = useState('') 
+    const [isModalVisible, setModalVisible] = useState(false) 
+    const [modalTitle, setModalTitle] = useState('')
+    const [modalData, setModalData] = useState('')
+    const [modalType, setModalType] = useState('')
+    const [formValue, setFormValue] = useState(null)
+    const isFocused = useIsFocused()  
+  
     useEffect(() => {
+      GetStudentById(studentId).then((res) => {
+        setStudentData(res) 
+        setFormValue(null)  
         
-    }, [])
+    })   
+    }, [isFocused])
     
     const onDelete = () => {
-        
         
         Alert.alert(
             "Confirm Delete..!",
@@ -51,13 +65,27 @@ const ViewStudents = ({route, navigation}) => {
                 )} }
             ]
         );
+    }
 
+    const onUpdate = (value) => {
+      let data = {
+        id: studentData.id,
+        field: modalType,
+        value: value,
+      }
+      UpdateStudentData(data).then(() => {
+        GetStudentById(studentId).then((res) => {
+          setStudentData(res), 
+          setFormValue(null)  
+          
+      })
        
+      })
     }
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.row}>
+            <View style={styles.rowButton}>
                 <Iconicons 
                     name="arrow-back-outline" 
                     size={40} 
@@ -68,14 +96,35 @@ const ViewStudents = ({route, navigation}) => {
                     onPress={()=>{navigation.navigate('ViewStudents')}}
                     />
             </View>
-            <Text style={styles.semiTitle}>Student Profile</Text>
+               
+            <View style={[styles.rowButton, { justifyContent: 'space-between', paddingBottom: 20}]}>
+                <Text style={styles.semiTitle}>Student</Text>
+                <Button 
+                    title="Delete" 
+                    onPress={() => onDelete()} 
+                    styless={[styles.button, {backgroundColor: Const.redColor
+                    }]}/>
+            </View>
             <ScrollView >
                 <View >
                     <View style={styles.row}>
                         <Iconicons name="person-circle-outline" size={50} color={Const.grayFontColor} style={styles.icons}/>
-                        <View style={{flex: 8}}> 
+                        <View style={{flex: 7}}> 
                             <Text style={styles.title}>Name</Text>
                             <Text style={styles.p}>{studentData && studentData.name}</Text>                     
+                        </View>
+                        <View style={{flex: 2, justifyContent: 'center'}}>
+                          <Iconicons 
+                              name="create-outline" 
+                              size={30} 
+                              color={Const.grayFontColor} 
+                              style={styles.icons}
+                              onPress={() => {
+                                setModalVisible(!isModalVisible), 
+                                setModalTitle('Name'), 
+                                setModalData(studentData.name)
+                                setModalType('name')
+                            }}/>
                         </View>
                     </View>
 
@@ -83,27 +132,53 @@ const ViewStudents = ({route, navigation}) => {
                         <View style={[styles.icons]}>
                             <Iconicons name="school-outline" size={50} color={Const.grayFontColor} />
                         </View>
-                        <View style={{flex: 8}}> 
+                        <View style={{flex: 7}}> 
                             <Text style={styles.title}>School</Text>
                             <Text style={styles.p}>{studentData && studentData.school}</Text>                    
-                        </View>            
+                        </View>  
+                        <View style={{flex: 2, justifyContent: 'center'}}>
+                          <Iconicons 
+                              name="create-outline" 
+                              size={30} 
+                              color={Const.grayFontColor} 
+                              style={styles.icons}
+                              onPress={() => {
+                                setModalVisible(!isModalVisible), 
+                                setModalTitle('School'), 
+                                setModalData(studentData.school)
+                                setModalType('school')
+                            }}/>
+                        </View>          
                     </View>
 
                     <View style={styles.row}>
                         <View style={[styles.icons]}>
                             <Iconicons name="mail-open-outline" size={50} color={Const.grayFontColor} />
                         </View>
-                        <View style={{flex: 8}}> 
+                        <View style={{flex: 7}}> 
                             <Text style={styles.title}>Address</Text>
                             <Text style={styles.p}>{studentData && studentData.address}</Text> 
-                        </View>            
+                        </View>
+                        <View style={{flex: 2, justifyContent: 'center'}}>
+                          <Iconicons 
+                              name="create-outline" 
+                              size={30} 
+                              color={Const.grayFontColor} 
+                              style={styles.icons}
+                              onPress={() => {
+                                setModalVisible(!isModalVisible), 
+                                setModalTitle('Address'), 
+                                setModalData(studentData.address)
+                                setModalType('address')
+                            }}/>
+                        </View>             
                     </View>
 
                     <View style={styles.row}>
                         <View style={[styles.icons]}>
                             <Iconicons name="at-outline" size={50} color={Const.grayFontColor} />
                         </View>
-                        <View style={{flex: 8}}> 
+                        <View style={{flex: 9}}> 
                             <Text style={styles.title}>Email</Text>
                             <Text style={styles.p}>{studentData && studentData.email}</Text>                     
                         </View>            
@@ -113,22 +188,10 @@ const ViewStudents = ({route, navigation}) => {
                         <View style={[styles.icons]}>
                             <Iconicons name="document-text-outline" size={50} color={Const.grayFontColor} />
                         </View>
-                        <View style={{flex: 8}}> 
+                        <View style={{flex: 9}}> 
                             <Text style={styles.title}>NIC Number</Text>
                             <Text style={styles.p}>{studentData && studentData.nic}</Text> 
                         </View>            
-                    </View> 
-                    <View style={[styles.row, {flex: 1, justifyContent: 'space-between'}]}>
-                        <Button 
-                            title="Delete" 
-                            onPress={() => onDelete()} 
-                            styless={[styles.button, {backgroundColor: Const.redColor
-                            }]}/>
-                        <Button 
-                            title="Update" 
-                            onPress={() => setModalVisible(!isModalVisible)} 
-                            styless={[styles.button, {backgroundColor: Const.greenColor
-                            }]}/>
                     </View>
                 </View>
                 <Modal animationType="slide" 
@@ -145,19 +208,20 @@ const ViewStudents = ({route, navigation}) => {
                           <View style={[styles.modalrow]}>                              
                              <Text style={[styles.mainTitle, 
                                 {padding: 0, 
-                                fontSize: 30
+                                fontSize: 30,
+                                textAlign: 'center'
                               }]}>
                                    
-                                  {'Upadte ' + studentData.name
-                                  .slice(0, studentData.name.indexOf(" ")) + "'s Data"}                                
+                                  Upadte {studentData && studentData.name
+                                  .slice(0, studentData.name.indexOf(" "))} 's {modalTitle}                                
 
                             </Text>
                           </View> 
                           <TextInput
                             style={styles.input}
-                            // placeholder={modalTitle}
-                            // defaultValue={modalData}
-                            // onChangeText={text => setFormValue(text)}
+                            placeholder={modalTitle}
+                            defaultValue={modalData}
+                            onChangeText={text => setFormValue(text)}
                             multiline={true}
                           />
                           <View style={[styles.modalrow, 
@@ -208,7 +272,24 @@ const styles = StyleSheet.create({
     },
     row: {
       flexDirection: 'row',
-      marginVertical: 10,
+      paddingVertical: 20,
+      paddingHorizontal: 10,
+      marginVertical: 5,
+      shadowColor: '#7F50F0',
+      shadowOffset: {
+        width: 0,
+        height: 10
+      },
+      shadowOpacity: 0.5,
+      shadowRadius: 3.5,
+      elevation: 2,
+      backgroundColor: Const.whiteFontColor,
+      borderRadius: 10,
+    },
+    rowButton: {
+      flexDirection: 'row',
+      paddingVertical: 10,
+      // paddingHorizontal: 10,      
     },
     mainTitle: {
       alignItems: 'center',
@@ -228,7 +309,8 @@ const styles = StyleSheet.create({
       fontSize: 30,
       color: Const.blackFontColor,
       fontWeight: '600',
-      marginVertical: 20,
+      // marginVertical: 20,
+      // paddingBottom: 20,
     },
     input: {
       borderBottomWidth: 1,
@@ -258,20 +340,19 @@ const styles = StyleSheet.create({
       backgroundColor: Const.blueColor,     
       height: 40,
       width: 100,
-      borderRadius: 10,
-      marginVertical: 20, 
+      borderRadius: 10, 
       marginHorizontal: 20,   
    },
    modalView: {
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: 'space-between',
     position: "absolute",
     top: "50%",
     left: "50%",
     elevation: 5,
     transform: [{ translateX: -(width * 0.4) }, 
                 { translateY: -90 }],
-    // height: 280,
+    // height: 220,
     width: width * 0.8,
     backgroundColor: Const.modalBackgroundColor,
     borderRadius: 10,
@@ -284,8 +365,9 @@ const styles = StyleSheet.create({
   },
   modalrow: {
     flexDirection: 'row',
-    paddingVertical: 10,
+    paddingVertical: 20,
     paddingHorizontal: 10,
+    marginVertical: 10,
   },
 //   button: {
 //     padding: 5,

@@ -73,7 +73,7 @@ const ViewStudents = ({navigation}) => {
                                       name="chevron-forward-circle-outline" 
                                       size={30} color={Const.grayFontColor} 
                                       style={styles.icons}
-                                      onPress={() => {navigation.navigate('StudentView', {studentData: row.data()})}}
+                                      onPress={() => {navigation.navigate('StudentView', {studentId: row.data().id})}}
                                   />
                                 </View>
                               </View>
