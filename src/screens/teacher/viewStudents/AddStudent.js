@@ -69,7 +69,11 @@ const AddStudent = ({navigation}) => {
       <ScrollView >
         <View >
           <View style={styles.row}>
-            <Iconicons name="person-circle-outline" size={30} color={Const.grayFontColor} style={styles.icons}/>
+            <Iconicons 
+              name="person-circle-outline" 
+              size={30} color={Const.grayFontColor} 
+              style={styles.icons}
+            />
             <View style={{flex: 21}}> 
               <Text style={styles.title}>Name</Text>
               <TextInput

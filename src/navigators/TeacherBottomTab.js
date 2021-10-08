@@ -4,6 +4,7 @@ import TeacherDashboard from '../screens/teacher/TeacherDashboard';
 import TeacherProfile from '../screens/teacher/teacherProfile/TeacherProfile';
 // import ViewStudents from '../screens/teacher/viewStudents/ViewStudents';
 import ViewStudentAddStack from './teacherStacks/ViewStudentStack';
+import ScheduleStack from './teacherStacks/ScheduleStack';
 import { StyleSheet, View, Text } from 'react-native';
 import  IonIcons  from 'react-native-vector-icons/Ionicons'
 import * as Const from '../../util/Contstants'
@@ -68,6 +69,20 @@ const TeacherBottomTab = () => {
                   <IonIcons name="people-outline" size={30} style={[styles.tabIcon]} />  
                 }
                 <Text style={styles.titleText}>Students</Text>
+            </View>
+          )
+        }}
+      />
+
+      <Tab.Screen name="Schedule" component={ScheduleStack} 
+        options={{
+          tabBarIcon: ({focused}) => (
+            <View>
+                {focused ? 
+                  <IonIcons name="calendar" size={30} style={[styles.tabIcon]} /> : 
+                  <IonIcons name="calendar-outline" size={30} style={[styles.tabIcon]} />  
+                }
+                <Text style={styles.titleText}>Schedule</Text>
             </View>
           )
         }}

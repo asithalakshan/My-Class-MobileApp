@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { 
   View, 
   Text, 
@@ -9,45 +9,21 @@ import {
   ImageBackground, 
   Dimensions 
 } from 'react-native'
-import auth from '@react-native-firebase/auth'
-import { useSelector } from 'react-redux'
-import { GetStudentList } from '../../../firebase/Teacher'
+import { SignOut } from '../../firebase/Authentication'
 import * as Const from '../../../../util/Contstants'
 import  Iconicons  from 'react-native-vector-icons/Ionicons'
 import Button from '../../../components/Button'
 import { useIsFocused } from '@react-navigation/native'
 
-async function get_student_list () {
-  
-  let students = []
- try {
-    await GetStudentList()
-          .then((res) => {
-            students = res
-            // console.log(res)      
-          })
-          return students;
-
- } catch (err){
-   console.log(err)
- }
- 
-}
-
 const { width } = Dimensions.get("window");
 
-const ViewStudents = ({navigation}) => {
+const Schedule = ({navigation}) => {
 
-  const [studentList, setStudentList] = useState('')
   const isFocused = useIsFocused()
   
   useEffect(() => {    
-    get_student_list().then((res) => {
-      setStudentList(res)
-    })    
+        
   }, [isFocused])
-
-  console.log('sdddddssssdd',Object.values(studentList)) 
 
   return(
 
@@ -64,7 +40,7 @@ const ViewStudents = ({navigation}) => {
                     <View style={styles.mainCard}>                        
                         <View style={styles.whitecard}>
                         
-                        {Object.values(studentList).map((row, i)=>(
+                        {/* {Object.values(studentList).map((row, i)=>(
                           <View style={styles.row} key={i}>
                                 <View style={{flex: 3, justifyContent: 'center'}}>
                                   <Iconicons 
@@ -82,11 +58,11 @@ const ViewStudents = ({navigation}) => {
                                       name="chevron-forward-circle-outline" 
                                       size={30} color={Const.grayFontColor} 
                                       style={styles.icons}
-                                      onPress={() => {navigation.navigate('StudentView', {studentId: row.data().id})}}
+                                      // onPress={() => {navigation.navigate('StudentView', {studentId: row.data().id})}}
                                   />
                                 </View>
                               </View>
-                        ))}
+                        ))} */}
                         </View>
                     </View>
                 </View>
@@ -98,7 +74,7 @@ const ViewStudents = ({navigation}) => {
   )
 }
 
-export default ViewStudents;
+export default Schedule;
 
 
 const styles = StyleSheet.create({
