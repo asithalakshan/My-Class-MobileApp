@@ -104,7 +104,7 @@ const Login = ({navigation}) => {
                 style={styles.input}
                 placeholder='Enter Your Email'
                 onChangeText={text => setEmail(text)}
-                defaultValue={email}
+                // defaultValue={email}
             />
             </View>
           </View>
@@ -120,7 +120,7 @@ const Login = ({navigation}) => {
                 placeholder='Password'
                 secureTextEntry={!showPassword}
                 onChangeText={text => setPassword(text)}
-                defaultValue={password}
+                // defaultValue={password}
             />
             </View>
             <View style={[styles.icons, {justifyContent: 'flex-end', alignItems: 'flex-end', paddingBottom: 10, marginBottom: 10, borderBottomColor: Const.grayFontColor, borderBottomWidth: 1,}]}>
@@ -190,6 +190,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 15,
     height: 50,
+    color: Const.blackFontColor
   },
   icons: {
     flex: 3,

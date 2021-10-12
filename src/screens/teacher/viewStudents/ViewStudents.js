@@ -47,7 +47,7 @@ const ViewStudents = ({navigation}) => {
     })    
   }, [isFocused])
 
-  console.log('sdddddssssdd',Object.values(studentList)) 
+  // console.log('sdddddssssdd',Object.values(studentList)) 
 
   return(
 
@@ -64,7 +64,7 @@ const ViewStudents = ({navigation}) => {
                     <View style={styles.mainCard}>                        
                         <View style={styles.whitecard}>
                         
-                        {Object.values(studentList).map((row, i)=>(
+                        {Object.values(studentList)?.map((row, i)=>(
                           <View style={styles.row} key={i}>
                                 <View style={{flex: 3, justifyContent: 'center'}}>
                                   <Iconicons 

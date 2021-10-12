@@ -24,8 +24,8 @@ const { width, height } = Dimensions.get("window");
 const TeacherProfile = ({navigation}) => {
 
  
-  // const userId = useSelector((state) => state.user.userId);
-  const userId = 'a9igZ6qiFwgdAyAlUhkAwqXRFw63'
+  const userId = useSelector((state) => state.user.userId);
+  // const userId = 'a9igZ6qiFwgdAyAlUhkAwqXRFw63'
   console.log('iddddd' , userId)
 
   const [userData, setUserData] = useState('')

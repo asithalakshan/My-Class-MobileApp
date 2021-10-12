@@ -79,7 +79,48 @@ export async function DeleteStudentById  (id)  {
         }  
 }
 
+export const AddClasses = (classes) => {
+    firestore().collection("class")
+        .doc()
+        .set({
+            name: classes.name,
+            date: classes.datee,
+            time: classes.timee, 
+        })
+        .then(function() {                    
+            console.log("Class Aded");
+            Alert.alert(
+                "CLass Added",
+                "Class added succuessfully",
+                [                      
+                    { text: "OK", onPress: () => {console.log("OK Pressed")}}
+                ]
+            );
+            return true
+        })
+        .catch((err) => {
+            console.log(err)
+            return err
+        })
+}
 
+export async function GetClassList  ()  {
+    
+    let data = []
+    try {
+        return await firestore()
+                .collection("class")
+                    .get()
+                    .then((res) => {                            
+                            data = res.docs
+                            // console.log("ustdents", data)
+                            return data                       
+                        })
+
+        } catch (error) {
+        console.log(error)
+        }  
+}
 
 export const AddStudentStore = (student) => {  
 

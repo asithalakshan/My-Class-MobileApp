@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { 
   View, 
   Text, 
@@ -14,24 +14,48 @@ import * as Const from '../../../../util/Contstants'
 import  Iconicons  from 'react-native-vector-icons/Ionicons'
 import Button from '../../../components/Button'
 import { useIsFocused } from '@react-navigation/native'
+import { GetClassList } from '../../../firebase/Teacher'
+import moment from 'moment'
 
 const { width } = Dimensions.get("window");
+
+async function get_class_list () {
+  
+  let classes = []
+ try {
+    await GetClassList()
+          .then((res) => {
+            classes = res
+            // console.log(res)      
+          })
+          return classes;
+
+ } catch (err){
+   console.log(err)
+ }
+ 
+}
 
 const Schedule = ({navigation}) => {
 
   const isFocused = useIsFocused()
+  const [classList, setClassList] = useState('')
+  const today = new Date()
   
   useEffect(() => {    
-        
+    get_class_list().then((res) => {
+      setClassList(res)
+      console.log('sdsdsdsds' , res)
+    })   
   }, [isFocused])
 
   return(
 
     <View style={styles.container}>
         <View style={[styles.mainCard], {flexDirection: 'row'}}>
-          <Text style={styles.semiTitle}>Students </Text>          
+          <Text style={styles.semiTitle}>Schedule </Text>          
           <View style={{alignContent: 'flex-end', flex: 1}}>
-            <Button title="Add Student"  onPress={() => {navigation.navigate('AddStudent')}} styless={styles.button} />
+            <Button title="Schedule a Class"  onPress={() => {navigation.navigate('AddClass')}} styless={styles.button} />
           </View>
         </View>
         <SafeAreaView style={styles.scrollContainer}>
@@ -40,7 +64,7 @@ const Schedule = ({navigation}) => {
                     <View style={styles.mainCard}>                        
                         <View style={styles.whitecard}>
                         
-                        {/* {Object.values(studentList).map((row, i)=>(
+                        {Object.values(classList).map((row, i)=>(
                           <View style={styles.row} key={i}>
                                 <View style={{flex: 3, justifyContent: 'center'}}>
                                   <Iconicons 
@@ -49,20 +73,16 @@ const Schedule = ({navigation}) => {
                                       style={styles.icons}
                                   />
                                 </View>
-                                <View style={{flex: 9, justifyContent: 'center'}}>
-                                    <Text style={styles.p1}>{row && row.data().name}</Text>
-                                    <Text style={styles.p}>{row && row.data().school}</Text>
+                                <View style={{flex: 8, justifyContent: 'center'}}>
+                                    <Text style={styles.p1}>{row?.data().name}</Text>
+                                    <Text style={styles.p}>{moment(row.data().date.toDate()).format('MMMM Do YYYY')}</Text>
                                 </View>
-                                <View style={{flex: 2, justifyContent: 'center'}}>
-                                  <Iconicons 
-                                      name="chevron-forward-circle-outline" 
-                                      size={30} color={Const.grayFontColor} 
-                                      style={styles.icons}
-                                      // onPress={() => {navigation.navigate('StudentView', {studentId: row.data().id})}}
-                                  />
+                                <View style={{flex: 3, justifyContent: 'center'}}>
+                                  <Text style={styles.p1}></Text>
+                                  <Text style={styles.p}>{moment(row?.data().time.toDate()).format('LT')}</Text>
                                 </View>
                               </View>
-                        ))} */}
+                        ))}
                         </View>
                     </View>
                 </View>
