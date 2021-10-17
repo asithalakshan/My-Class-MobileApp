@@ -8,6 +8,7 @@ import firestore from '@react-native-firebase/firestore'
 import { firebase } from '@react-native-firebase/firestore'
 import * as TeacherFire from '../../../firebase/Teacher'
 import { useIsFocused } from '@react-navigation/native'
+import Header from '../../../components/Header'
 
 
 const AddStudent = ({navigation}) => {
@@ -39,7 +40,7 @@ const AddStudent = ({navigation}) => {
     }
     // console.log(student)
     const responce = TeacherFire.AddStudentStore(student)
-    console.log('ad res' , responce)
+    
     // navigation.navigate('ViewStudents')
     setOkPress(!okPress)
     if(responce) {
@@ -53,7 +54,8 @@ const AddStudent = ({navigation}) => {
   return(
 
     <SafeAreaView style={styles.container}>
-      <View style={styles.row}>
+      <Header/>
+      <View style={[styles.row, {paddingHorizontal: 20, marginVertical: 0}]}>
           <Iconicons 
               name="arrow-back-outline" 
               size={40} 
@@ -65,9 +67,9 @@ const AddStudent = ({navigation}) => {
               />
       </View>
       
-      <Text style={styles.semiTitle}>Add Student</Text>
+      <Text style={[styles.semiTitle, {paddingHorizontal: 20,  marginVertical: 0}]}>Add Student</Text>
       <ScrollView >
-        <View >
+        <View style={{paddingHorizontal: 20}}>
           <View style={styles.row}>
             <Iconicons 
               name="person-circle-outline" 
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: Const.lightBackgroundColor,
-      paddingHorizontal: 20,
+      // paddingHorizontal: 20,
       paddingBottom: 120,
     },
     mainCard: {

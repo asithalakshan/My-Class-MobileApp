@@ -1,8 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import TeacherDashboard from '../screens/teacher/TeacherDashboard';
 import TeacherProfile from '../screens/teacher/teacherProfile/TeacherProfile';
-// import ViewStudents from '../screens/teacher/viewStudents/ViewStudents';
 import ViewStudentAddStack from './teacherStacks/ViewStudentStack';
 import ScheduleStack from './teacherStacks/ScheduleStack';
 import { StyleSheet, View, Text } from 'react-native';
@@ -32,29 +30,15 @@ const TeacherBottomTab = () => {
         headerShown: false,
       }}
     >
-      <Tab.Screen name="Profilrs" component={TeacherProfile} 
+      <Tab.Screen name="Schedule" component={ScheduleStack} 
         options={{
           tabBarIcon: ({focused}) => (
             <View>
                 {focused ? 
-                  <IonIcons name="person" size={30} style={[styles.tabIcon]} /> : 
-                  <IonIcons name="person-outline" size={30} style={[styles.tabIcon]} />  
+                  <IonIcons name="calendar" size={30} style={[styles.tabIcon]} /> : 
+                  <IonIcons name="calendar-outline" size={30} style={[styles.tabIcon]} />  
                 }
-                <Text style={styles.titleText}>Profile</Text>
-            </View>
-          )
-        }}
-      />
-      
-      <Tab.Screen name="Dashboard" component={TeacherDashboard} 
-        options={{
-          tabBarIcon: ({focused}) => (
-            <View>
-                {focused ? 
-                  <IonIcons name="home" size={30} style={[styles.tabIcon]} /> : 
-                  <IonIcons name="home-outline" size={30} style={[styles.tabIcon]} />  
-                }
-                <Text style={styles.titleText}>Home</Text>
+                <Text style={styles.titleText}>Schedule</Text>
             </View>
           )
         }}
@@ -74,20 +58,19 @@ const TeacherBottomTab = () => {
         }}
       />
 
-      <Tab.Screen name="Schedule" component={ScheduleStack} 
+      <Tab.Screen name="Profilrs" component={TeacherProfile} 
         options={{
           tabBarIcon: ({focused}) => (
             <View>
                 {focused ? 
-                  <IonIcons name="calendar" size={30} style={[styles.tabIcon]} /> : 
-                  <IonIcons name="calendar-outline" size={30} style={[styles.tabIcon]} />  
+                  <IonIcons name="person" size={30} style={[styles.tabIcon]} /> : 
+                  <IonIcons name="person-outline" size={30} style={[styles.tabIcon]} />  
                 }
-                <Text style={styles.titleText}>Schedule</Text>
+                <Text style={styles.titleText}>Profile</Text>
             </View>
           )
         }}
       />
-
       
     </Tab.Navigator>
 

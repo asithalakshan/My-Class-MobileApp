@@ -23,6 +23,7 @@ import * as Const from '../../../../util/Contstants'
 import  Iconicons  from 'react-native-vector-icons/Ionicons'
 import Button from '../../../components/Button'
 import { useIsFocused } from '@react-navigation/native'
+import Header from '../../../components/Header'
 
 const { width, height } = Dimensions.get("window");
 
@@ -84,20 +85,22 @@ const ViewStudents = ({route, navigation}) => {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.rowButton}>
+        <SafeAreaView style={[styles.container, {paddingHorizontal: 0}]}>
+          <Header />
+            <View style={[styles.rowButton, {paddingHorizontal: 20}]}>
                 <Iconicons 
                     name="arrow-back-outline" 
                     size={40} 
                     color={Const.blueColor} 
                     style={[styles.icons, {
-                        marginVertical: 10,
+                        marginVertical: 0,
+                        paddingVertical: 0,
                     }]}
                     onPress={()=>{navigation.navigate('ViewStudents')}}
                     />
             </View>
                
-            <View style={[styles.rowButton, { justifyContent: 'space-between', paddingBottom: 20}]}>
+            <View style={[styles.rowButton, { justifyContent: 'space-between', paddingBottom: 10, paddingHorizontal: 20}]}>
                 <Text style={styles.semiTitle}>Student</Text>
                 <Button 
                     title="Delete" 
@@ -106,7 +109,7 @@ const ViewStudents = ({route, navigation}) => {
                     }]}/>
             </View>
             <ScrollView >
-                <View >
+                <View style={{paddingHorizontal: 20}}>
                     <View style={styles.row}>
                         <Iconicons name="person-circle-outline" size={50} color={Const.grayFontColor} style={styles.icons}/>
                         <View style={{flex: 7}}> 

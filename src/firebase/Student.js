@@ -81,6 +81,23 @@ export async function UpdateUserData  (data)  {
             console.log(error)
             }
     }
-        console.log("usedatatatata", data)       
+        console.log("usedatatatata", data)  
+}
+
+export async function GetClassList  ()  {
     
+    let data = []
+    try {
+        return await firestore()
+                .collection("class")
+                    .get()
+                    .then((res) => {                            
+                            data = res.docs
+                            // console.log("ustdents", data)
+                            return data                       
+                        })
+
+        } catch (error) {
+        console.log(error)
+        }  
 }

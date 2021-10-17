@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, View, Text } from 'react-native';
 import  IonIcons  from 'react-native-vector-icons/Ionicons'
 import * as Const from '../../util/Contstants'
-import StudentDashboard from '../screens/student/StudentDashboard';
+import StudentDashboard from '../screens/student/dashboard/StudentDashboard';
 import StudentProfile from '../screens/student/studentProfile/StudentProfile';
 
 const Tab = createBottomTabNavigator();
@@ -29,20 +29,7 @@ const TeacherBottomTab = () => {
         headerShown: false,
       }}
     >
-      <Tab.Screen name="StudentProfile" component={StudentProfile}  
-        options={{
-          tabBarIcon: ({focused}) => (
-            <View>
-                {focused ? 
-                  <IonIcons name="person" size={30} style={[styles.tabIcon]} /> : 
-                  <IonIcons name="person-outline" size={30} style={[styles.tabIcon]} />  
-                }
-                <Text style={styles.titleText}>Profile</Text>
-            </View>
-          )
-        }}
-      />
-      
+            
       <Tab.Screen name="StudentDashboard" component={StudentDashboard} 
         options={{
           tabBarIcon: ({focused}) => (
@@ -56,6 +43,20 @@ const TeacherBottomTab = () => {
           )
         }}
       /> 
+
+      <Tab.Screen name="StudentProfile" component={StudentProfile}  
+        options={{
+          tabBarIcon: ({focused}) => (
+            <View>
+                {focused ? 
+                  <IonIcons name="person" size={30} style={[styles.tabIcon]} /> : 
+                  <IonIcons name="person-outline" size={30} style={[styles.tabIcon]} />  
+                }
+                <Text style={styles.titleText}>Profile</Text>
+            </View>
+          )
+        }}
+      />
       
     </Tab.Navigator>
 

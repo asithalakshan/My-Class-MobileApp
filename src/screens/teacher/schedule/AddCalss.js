@@ -6,6 +6,7 @@ import Button from '../../../components/Button'
 import * as TeacherFire from '../../../firebase/Teacher'
 import { useIsFocused } from '@react-navigation/native'
 import DatePicker from 'react-native-date-picker'
+import Header from '../../../components/Header'
 
 const AddClass = ({navigation}) => {
  
@@ -27,13 +28,13 @@ const AddClass = ({navigation}) => {
   function onConfirmDate (date) {
     setOpen(false)
     setDate(date)
-    console.log(date)
+    // console.log(date)
   }
 
   function onConfirmTime (time) {
     setOpenT(false)
     setTime(time)
-    console.log(time)
+    // console.log(time)
   }
   
   function addClass () {
@@ -43,100 +44,102 @@ const AddClass = ({navigation}) => {
       timee: time,
     }
     const responce = TeacherFire.AddClasses(classes)
-    console.log('ad res' , responce)
+    
     setOkPress(!okPress) 
     navigation.navigate('Schedule') 
   }
 
   return(
 
-    <SafeAreaView style={styles.container}>
-      <View style={styles.row}>
-          <Iconicons 
-              name="arrow-back-outline" 
-              size={40} 
-              color={Const.blueColor} 
-              style={[styles.icons, {
-                  marginVertical: 10,
-              }]}
-              onPress={()=>{navigation.navigate('Schedulee')}}
-              />
-      </View>
-      
-      <Text style={styles.semiTitle}>Schedule a Class</Text>
-      <ScrollView >
-        <View >
-          <View style={styles.row}>
+    <View style={styles.container}>
+      <Header/>      
+        <View style={[styles.row, {marginHorizontal: 10}]}>
             <Iconicons 
-              name="person-circle-outline" 
-              size={30} color={Const.grayFontColor} 
-              style={styles.icons}
-            />
-
-            <View style={{flex: 21}}> 
-              <Text style={styles.title}>Class</Text>
-              <TextInput
-                style={styles.input}
-                placeholder='CLass title'
-                onChangeText={text => setClassName(text)}
-                defaultValue={className}
-            />
-            </View>
-          </View>
-
-          <View style={styles.row}>
-            <View style={[styles.icons]}>
-              <Iconicons name="school-outline" size={30} color={Const.grayFontColor} />
-            </View>
-            <View style={{flex: 21}}>               
-              <Text style={styles.title}>Date</Text>
-              <View style={styles.row}>
-                <Text style={[styles.p, {flex: 4}]}>{date.getFullYear()}/{date.getMonth()}/{date.getDate()}</Text>
-                <Button title="Date" styless={styles.buttonSchedule} onPress={() => setOpen(true)} />
-              </View>
-              <DatePicker
-                modal
-                mode='date'
-                open={open}
-                date={date}
-                onConfirm={(date) => {
-                  onConfirmDate(date)
-                }}
-                onCancel={() => {
-                  setOpen(false)
-                }}
+                name="arrow-back-outline" 
+                size={40} 
+                color={Const.blueColor} 
+                style={[styles.icons, {
+                    marginVertical: 10,
+                }]}
+                onPress={()=>{navigation.navigate('Schedulee')}}
+                />
+              <Text style={styles.semiTitle}>Schedule a Class</Text>
+        </View> 
+        <SafeAreaView style={styles.scrollContainer}>   
+        <ScrollView >
+          <View >
+            <View style={styles.row}>
+              <Iconicons 
+                name="person-circle-outline" 
+                size={30} color={Const.grayFontColor} 
+                style={styles.icons}
               />
-            </View>          
-          </View> 
 
-          <View style={styles.row}>
-            <View style={[styles.icons]}>
-              <Iconicons name="school-outline" size={30} color={Const.grayFontColor} />
-            </View>
-            <View style={{flex: 21}}>               
-              <Text style={styles.title}>Time</Text>
-              <View style={styles.row}>
-                <Text style={[styles.p, {flex: 4}]}>{time.getHours()}:{time.getMinutes()}</Text>
-                <Button title="Time" styless={styles.buttonSchedule} onPress={() => setOpenT(true)} />
-              </View>
-              <DatePicker
-                modal
-                mode='time'
-                open={openT}
-                date={time}
-                onConfirm={(time) => {
-                  onConfirmTime(time)
-                }}
-                onCancel={() => {
-                  setOpenT(false)
-                }}
+              <View style={{flex: 21}}> 
+                <Text style={styles.title}>Class</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder='CLass title'
+                  onChangeText={text => setClassName(text)}
+                  defaultValue={className}
               />
-            </View>          
+              </View>
+            </View>
+
+            <View style={styles.row}>
+              <View style={[styles.icons]}>
+                <Iconicons name="school-outline" size={30} color={Const.grayFontColor} />
+              </View>
+              <View style={{flex: 21}}>               
+                <Text style={styles.title}>Date</Text>
+                <View style={styles.row}>
+                  <Text style={[styles.p, {flex: 4}]}>{date.getFullYear()}/{date.getMonth()}/{date.getDate()}</Text>
+                  <Button title="Date" styless={styles.buttonSchedule} onPress={() => setOpen(true)} />
+                </View>
+                <DatePicker
+                  modal
+                  mode='date'
+                  open={open}
+                  date={date}
+                  onConfirm={(date) => {
+                    onConfirmDate(date)
+                  }}
+                  onCancel={() => {
+                    setOpen(false)
+                  }}
+                />
+              </View>          
+            </View> 
+
+            <View style={styles.row}>
+              <View style={[styles.icons]}>
+                <Iconicons name="school-outline" size={30} color={Const.grayFontColor} />
+              </View>
+              <View style={{flex: 21}}>               
+                <Text style={styles.title}>Time</Text>
+                <View style={styles.row}>
+                  <Text style={[styles.p, {flex: 4}]}>{time.getHours()}:{time.getMinutes()}</Text>
+                  <Button title="Time" styless={styles.buttonSchedule} onPress={() => setOpenT(true)} />
+                </View>
+                <DatePicker
+                  modal
+                  mode='time'
+                  open={openT}
+                  date={time}
+                  onConfirm={(time) => {
+                    onConfirmTime(time)
+                  }}
+                  onCancel={() => {
+                    setOpenT(false)
+                  }}
+                />
+              </View>          
+            </View>
+            <Button title="Schedule a Class"  onPress={() => addClass()}  styless={styles.button} />
           </View>
-          <Button title="Schedule a Class"  onPress={() => addClass()}  styless={styles.button} />
-        </View>
-      </ScrollView>     
-    </SafeAreaView>
+        </ScrollView>     
+      </SafeAreaView>
+    </View>
   )
 }
 
@@ -145,11 +148,18 @@ export default AddClass;
 
 const styles = StyleSheet.create({ 
 
+    scrollContainer: {
+      flex: 1,
+      paddingHorizontal: 20,
+      paddingTop: 0,
+      backgroundColor: Const.lightBackgroundColor,
+    },
     container: {
       flex: 1,
-      backgroundColor: Const.lightBackgroundColor,
-      paddingHorizontal: 20,
+      // alignItems: 'center',
+      justifyContent: 'center',
       paddingBottom: 120,
+      backgroundColor: Const.lightBackgroundColor,
     },
     mainCard: {
       marginHorizontal: 20,

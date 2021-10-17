@@ -62,7 +62,6 @@ const Login = ({navigation}) => {
     
     if(responceId){
       dispatch(signIn(responceId))
-      console.log("Responce " , responceId)
       
       
       if(type.data().type == 'teacher'){
@@ -75,13 +74,7 @@ const Login = ({navigation}) => {
       
     }
 
-    
-    // console.log('tyeeeeeps' ,userType.type)
-
-
-
   }
-  
 
   return(
 

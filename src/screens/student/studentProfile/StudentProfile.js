@@ -18,14 +18,14 @@ import * as Const from '../../../../util/Contstants'
 import  Iconicons  from 'react-native-vector-icons/Ionicons'
 import Button from '../../../components/Button'
 import { useIsFocused } from '@react-navigation/native'
+import Header from '../../../components/Header'
 
 const { width, height } = Dimensions.get("window");
 
 const StudentProfile = ({navigation}) => {
 
   const userId = useSelector((state) => state.user.userId);
-  // const userId = 'a9igZ6qiFwgdAyAlUhkAwqXRFw63'
-  console.log('iddddd' , userId)
+  
   const [userData, setUserData] = useState('')
   const [isModalVisible, setModalVisible] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
@@ -58,11 +58,11 @@ const StudentProfile = ({navigation}) => {
     })
   }
 
-  console.log('userrr ' , userData)
-
+  
   return(
 
-    <View style={styles.container}>      
+    <View style={styles.container}>  
+      <Header/>    
       <View style={[styles.mainCard]}>
         <Text style={styles.semiTitle}>
           Welcome {userData && userData.name.slice(0, userData.name.indexOf(" "))}
@@ -347,7 +347,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: Const.blackFontColor,
     fontWeight: '600',
-    marginVertical: 20,
+    marginBottom: 5,
   },
   p1: {
     fontSize: 20,

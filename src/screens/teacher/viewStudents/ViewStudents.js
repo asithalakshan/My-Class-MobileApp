@@ -16,6 +16,7 @@ import * as Const from '../../../../util/Contstants'
 import  Iconicons  from 'react-native-vector-icons/Ionicons'
 import Button from '../../../components/Button'
 import { useIsFocused } from '@react-navigation/native'
+import Header from '../../../components/Header'
 
 async function get_student_list () {
   
@@ -47,11 +48,10 @@ const ViewStudents = ({navigation}) => {
     })    
   }, [isFocused])
 
-  // console.log('sdddddssssdd',Object.values(studentList)) 
-
   return(
 
     <View style={styles.container}>
+      <Header/>
         <View style={[styles.mainCard], {flexDirection: 'row'}}>
           <Text style={styles.semiTitle}>Students </Text>          
           <View style={{alignContent: 'flex-end', flex: 1}}>
@@ -191,4 +191,11 @@ const styles = StyleSheet.create({
     marginVertical: 20, 
     marginHorizontal: 20,
  },
+ whitecard: {
+  backgroundColor: Const.backgroungLightColour,
+  borderRadius: 10,
+  marginVertical: 20,
+  paddingHorizontal: 10,
+  paddingVertical: 10,
+},
 })

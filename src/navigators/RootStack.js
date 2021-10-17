@@ -16,8 +16,8 @@ const RootStack = () => {
                     headerShown: false
                 }}
             >
-                {/* <Root.Screen name='AuthStack' component={AuthStack}/> */}
-                <Root.Screen name='TeacherBottomTab' component={TeacherBottomTab}/>
+                <Root.Screen name='AuthStack' component={AuthStack}/>
+                {/* <Root.Screen name='TeacherBottomTab' component={TeacherBottomTab}/> */}
             </Root.Navigator>
         </NavigationContainer>
     )

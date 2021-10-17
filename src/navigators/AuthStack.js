@@ -5,6 +5,7 @@ import Login from '../screens/Login';
 import AboutUs from  '../screens/AboutUs';
 import StudentBottomTab from './StudentBottomTab';
 import TeacherBottomTab from './TeacherBottomTab';
+import Header from '../components/Header';
 
 
 const Auth = createNativeStackNavigator();
@@ -23,6 +24,7 @@ const AuthStack = () => {
                 <Auth.Screen name='AboutUs' component={AboutUs}/>
                 <Auth.Screen name='StudentBottomTab' component={StudentBottomTab}/>
                 <Auth.Screen name='TeacherBottomTab' component={TeacherBottomTab}/>
+                {/* <Auth.Screen name='Header' component={Header}/> */}
 
             </Auth.Navigator>
        

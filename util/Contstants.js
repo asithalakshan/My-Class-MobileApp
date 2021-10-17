@@ -19,3 +19,5 @@ export const whiteFontColor = '#FFF'
 
 export const modalBackgroundColor = '#FFF'
 
+export const backgroungLightColour = '#D6EAF8'
+

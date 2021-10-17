@@ -122,6 +122,25 @@ export async function GetClassList  ()  {
         }  
 }
 
+export async function DeleteClass  (id)  {
+    
+    let data = []
+    try {
+        return await firestore()
+                .collection("class")
+                    .doc(id)
+                    .delete()
+                    .then((res) => {                            
+                            // data = res.data()
+                            // console.log("ustdents", data)
+                            return res                       
+                        })
+
+        } catch (error) {
+        console.log(error)
+        }  
+}
+
 export const AddStudentStore = (student) => {  
 
         // function addUserTable (userId) {         
